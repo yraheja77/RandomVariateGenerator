@@ -15,6 +15,7 @@ from scipy.stats import norm
 from decimal import Decimal
 import matplotlib.pyplot as plt
 
+
 # Initialising and Defining the class rvg
 class RandVarGen:
     def __init__(self, random_no=0):
@@ -60,7 +61,7 @@ class RandVarGen:
     def geom(self, p, unif_no):
         return math.ceil(np.log(1-unif_no) / np.log(1-p))
 
-# To generate a np.array of X of a Bernoulli(p) distribution
+# To generate a np.array of X of a Geometric(p) distribution
     def geometric(self, p, size=None):
         random.seed(self.seed)
         if size:
@@ -87,11 +88,11 @@ class RandVarGen:
                 x += 1
                 lower_bound = Fx
 
-    # To generate a np.array of X of a Bernoulli(p) distribution
+# To generate a np.array of X of a Poisson(lambda) distribution
     def poisson(self, a_lambda, size=None):
         random.seed(self.seed)
         if a_lambda > 2:
-            return ("Can't process lamda values greater than 2 right now. Please wait for the next version of the library")
+            return "Can't process lambda values greater than 2. Please wait for the next version of the library"
         if size:
             size = int(size)
             out_array = []
@@ -110,7 +111,7 @@ class RandVarGen:
         else:
             return 2 - (2 * (1-unif_no)) ** 0.5
 
-    # To generate a np.array of X of a Bernoulli(p) distribution
+# To generate a np.array of X of a Triangular(0, 1, 2) distribution
     def triangular(self, size=None):
         random.seed(self.seed)
         if size:
@@ -128,7 +129,7 @@ class RandVarGen:
     def norm(self, mu, var, unif_no):
         return norm.ppf(unif_no, loc=mu, scale=var**0.5)
 
-    # To generate a np.array of X of a Bernoulli(p) distribution
+# To generate a np.array of X of a Normal(mu, var) distribution
     def normal(self, mu=0, var=1, size=None):
         random.seed(self.seed)
         if size:
@@ -142,15 +143,13 @@ class RandVarGen:
             return self.norm(mu, var, unif_no)
         return np.array(out_array)
 
-
 # To generate X of a Weibull(lambda, beta) distribution
     def weib(self, a_lambda, beta, unif_no):
-        return ((1/a_lambda) * (-np.log(1-unif_no))**(1/beta))
+        return (1/a_lambda) * (-np.log(1-unif_no))**(1/beta)
 
+# To generate a np.array of X of a Weibull(lambda, beta) distribution
     def weibull(self, a_lambda, beta, size=None):
         random.seed(self.seed)
-        # if a_lambda > 2:
-        #     return ("Can't process lambda values greater than 2 right now. Please wait for the next version of the library")
         if size:
             size = int(size)
             out_array = []
@@ -162,10 +161,11 @@ class RandVarGen:
             return self.weib(a_lambda=a_lambda, beta=beta, unif_no=unif_no)
         return np.array(out_array)
 
-# To generate X of a Exp(lambda) distribution
+# To generate X of an Exponential(lambda) distribution
     def exp(self, a_lambda, unif_no):
-        return ((-1/a_lambda) * np.log(1-unif_no))
+        return (-1/a_lambda) * np.log(1-unif_no)
 
+# To generate a np.array of X of an Exponential(lambda) distribution
     def exponential(self, a_lambda, size=None):
         random.seed(self.seed)
         if size:
@@ -189,12 +189,13 @@ class RandVarGen:
             else:
                 lower_bound = upper_bound
 
+# To generate a np.array of X of a Discrete pmf given any x and f(x) distribution
     def discrete(self, x, fx, size=None):
         random.seed(self.seed)
 
         # To check if the input list lengths match
         if len(x) != len(fx):
-            return("Input Error: list of x and f(x) have different lenghts")
+            return "Input Error: list of x and f(x) have different lenghts"
 
         # To check if the pmf sums to 1
         if (1-sum(fx)) > 0.000000001:
@@ -215,6 +216,7 @@ class RandVarGen:
     def unif(self, a, b, unif_no):
         return a + (b-a) * unif_no
 
+# To generate a np.array of X of a Uniform(a,b) distribution
     def uniform(self, a, b, size=None):
         random.seed(self.seed)
         if size:
@@ -232,6 +234,7 @@ class RandVarGen:
     def disc_unif(self, n, unif_no):
         return math.ceil(unif_no * n)
 
+# To generate a np.array of X of a Discrete Uniform(n) distribution with probability 1/n
     def discrete_uniform(self, n, size=None):
         random.seed(self.seed)
         if size:
@@ -245,11 +248,11 @@ class RandVarGen:
             return self.disc_unif(n=n, unif_no=unif_no)
         return np.array(out_array)
 
-    # To generate a single X of a Binomial(n,p) distribution
+# To generate a single X of a Binomial(n,p) distribution
     def bin(self, n, p):
         return np.sum(np.array(self.bernoulli(p=p, size=n)))
 
-    # To generate a series of X of a Binomial(n,p) distribution
+# To generate a np.array of X of a Binomial(n,p) distribution
     def binomial(self, n, p, size=None):
         random.seed(self.seed)
         if size:
@@ -272,7 +275,7 @@ class RandVarGen:
             unif_no_product *= random.random()
         return (-1/a_lambda) * np.log(unif_no_product)
 
-# To generate a series of X of a Erlang(lambda, n) distribution
+# To generate a np.array of X of a Erlang(lambda, n) distribution
     def erlang(self, a_lambda, n, size=None):
         random.seed(self.seed)
         if size:
@@ -290,7 +293,7 @@ class RandVarGen:
     def NegBin_single(self, n, p):
         return np.sum(np.array(self.geometric(p=p, size=n)))
 
-# To generate a series of X of a NegBin(n, p) distribution
+# To generate a np.array of X of a NegBin(n, p) distribution
     def negative_binomial(self, n, p, size=None):
         random.seed(self.seed)
         if size:
@@ -311,7 +314,7 @@ class RandVarGen:
             out_value += self.normal(mu=0, var=1)**2
         return out_value
 
-# To generate a series of X of a Normal(n, p) distribution
+# To generate a np.array of X of a Normal(n, p) distribution
     def chisquare(self, n, size=None):
         random.seed(self.seed)
         if size:
@@ -322,14 +325,13 @@ class RandVarGen:
                 out_array.append(self.chisquare_single(n=n))
         else:
             self.seed = int(random.random() * 10 ** 20)
-            return self.chisquare_single( n=n)
+            return self.chisquare_single(n=n)
         return np.array(out_array)
+
 
 # To plot a derived distribution
 def plot_cont_dist(x, title):
     plt.title(title)
-    # plot_x = np.arange(0, x.size)
-    # plot_y = np.sort(x)
     plt.xlabel("Value")
     plt.ylabel("probability")
     plt.hist(x, bins=100, color="blue")
@@ -349,6 +351,7 @@ def plot_cont_dist(x, title):
 # print(RandVarGen(1234).erlang(5, 5, 100))
 # print(RandVarGen().negative_binomial(10, 0.5, 100))
 # print(RandVarGen().chisquare(5, 100))
+
 
 size1 = 10000
 np.random.seed(0)
@@ -372,7 +375,7 @@ plot_cont_dist(poisson_native, 'Poisson Distribution (Numpy native)')
 
 # Comparing Triangular distribution in RandVarGen with Python Native
 triangular_RandVarGen = RandVarGen().triangular(size=size1)
-triangular_native = np.random.triangular(0,1,2,size=size1)
+triangular_native = np.random.triangular(0, 1, 2, size=size1)
 plot_cont_dist(triangular_RandVarGen, 'Triangular Distribution (RandVarGen)')
 plot_cont_dist(triangular_native, 'Triangular Distribution (Numpy native)')
 
