@@ -250,6 +250,7 @@ class RandVarGen:
 
 # To generate a single X of a Binomial(n,p) distribution
     def bin(self, n, p):
+        n = math.floor(n)
         return np.sum(np.array(self.bernoulli(p=p, size=n)))
 
 # To generate a np.array of X of a Binomial(n,p) distribution
@@ -361,11 +362,53 @@ bernoulli_RandVarGen = RandVarGen().bernoulli(p=0.7, size=size1)
 print(bernoulli_RandVarGen/bernoulli_RandVarGen.size)
 plot_cont_dist(bernoulli_RandVarGen, 'Bernoulli Distribution (RandVarGen)')
 
+# Comparing Binomial distribution in RandVarGen with Python Native
+binomial_RandVarGen = RandVarGen().binomial(5, 0.5,  size=size1)
+binomial_native = np.random.binomial(5, 0.5, size=size1)
+plot_cont_dist(binomial_RandVarGen, 'Binomial Distribution (RandVarGen)')
+plot_cont_dist(binomial_native, 'Binomial Distribution (Numpy native)')
+
+# Comparing Chi-Square distribution in RandVarGen with Python Native
+chisquare_RandVarGen = RandVarGen().chisquare(3,  size=size1)
+chisquare_native = np.random.chisquare(3, size=size1)
+plot_cont_dist(chisquare_RandVarGen, 'Chi-Square Distribution (RandVarGen)')
+plot_cont_dist(chisquare_native, 'Chi-Square Distribution (Numpy native)')
+
+# Comparing Discrete distribution in RandVarGen with Python Native
+discrete_RandVarGen = RandVarGen().discrete([-1, 2.5, 4], [0.6, 0.3, 0.1],  size=size1)
+plot_cont_dist(discrete_RandVarGen, 'Discrete Distribution (RandVarGen)')
+
+# Comparing Discrete Uniform distribution in RandVarGen with Python Native
+discunif_RandVarGen = RandVarGen().discrete_uniform(12, size=size1)
+plot_cont_dist(discunif_RandVarGen, 'Discrete Uniform Distribution (RandVarGen)')
+
+# Comparing Erlang distribution in RandVarGen with Python Native
+erlang_RandVarGen = RandVarGen().erlang(1, 2,  size=size1)
+plot_cont_dist(erlang_RandVarGen, 'Erlang Distribution (RandVarGen)')
+
+# Comparing Exponential distribution in RandVarGen with Python Native
+exponential_RandVarGen = RandVarGen().exponential(10,  size=size1)
+exponential_native = np.random.exponential(10, size=size1)
+plot_cont_dist(exponential_RandVarGen, 'Exponential Distribution (RandVarGen)')
+plot_cont_dist(exponential_native, 'Exponential Distribution (Numpy native)')
+
 # Comparing Geometric distribution in RandVarGen with Python Native
 geometric_RandVarGen = RandVarGen().geometric(p=0.6, size=size1)
 geometric_native = np.random.geometric(p=0.6, size=size1)
 plot_cont_dist(geometric_RandVarGen, 'Geometric Distribution (RandVarGen)')
 plot_cont_dist(geometric_native, 'Geometric Distribution (Numpy native)')
+
+# Comparing Negative Binomial distribution in RandVarGen with Python Native
+negbinomial_RandVarGen = RandVarGen().negative_binomial(5, 0.5,  size=size1)
+negbinomial_native = np.random.negative_binomial(5, 0.5, size=size1)
+plot_cont_dist(negbinomial_RandVarGen, 'Negative Binomial Distribution (RandVarGen)')
+plot_cont_dist(negbinomial_native, 'Negative Binomial Distribution (Numpy native)')
+
+# Comparing Normal distribution in RandVarGen with Python Native
+normal_RandVarGen = RandVarGen().normal(size=size1)
+normal_native = np.random.normal(size=size1)
+plot_cont_dist(normal_RandVarGen, 'Normal Distribution (RandVarGen)')
+plot_cont_dist(normal_native, 'Normal Distribution (Numpy native)')
 
 # Comparing Poisson distribution in RandVarGen(lambda can be max 2 right now) with Python Native
 poisson_RandVarGen = RandVarGen().poisson(2, size=size1)
@@ -379,56 +422,14 @@ triangular_native = np.random.triangular(0, 1, 2, size=size1)
 plot_cont_dist(triangular_RandVarGen, 'Triangular Distribution (RandVarGen)')
 plot_cont_dist(triangular_native, 'Triangular Distribution (Numpy native)')
 
-# Comparing Normal distribution in RandVarGen with Python Native
-normal_RandVarGen = RandVarGen().normal(size=size1)
-normal_native = np.random.normal(size=size1)
-plot_cont_dist(normal_RandVarGen, 'Normal Distribution (RandVarGen)')
-plot_cont_dist(normal_native, 'Normal Distribution (Numpy native)')
-
-# Comparing Weibull distribution in RandVarGen with Python Native
-weibull_RandVarGen = RandVarGen().weibull(1, 3, size=size1)
-weibull_native = np.random.weibull(3, size=size1)
-plot_cont_dist(weibull_RandVarGen, 'Weibull Distribution (RandVarGen)')
-plot_cont_dist(weibull_native, 'Weibull Distribution (Numpy native)')
-
-# Comparing Exponential distribution in RandVarGen with Python Native
-exponential_RandVarGen = RandVarGen().exponential(10,  size=size1)
-exponential_native = np.random.exponential(10, size=size1)
-plot_cont_dist(exponential_RandVarGen, 'Exponential Distribution (RandVarGen)')
-plot_cont_dist(exponential_native, 'Exponential Distribution (Numpy native)')
-
-# Comparing Discrete distribution in RandVarGen with Python Native
-discrete_RandVarGen = RandVarGen().discrete([-1, 2.5, 4], [0.6, 0.3, 0.1],  size=size1)
-plot_cont_dist(discrete_RandVarGen, 'Discrete Distribution (RandVarGen)')
-
 # Comparing Uniform distribution in RandVarGen with Python Native
 uniform_RandVarGen = RandVarGen().uniform(9, 27,  size=size1)
 uniform_native = np.random.uniform(9, 27, size=size1)
 plot_cont_dist(uniform_RandVarGen, 'Uniform Distribution (RandVarGen)')
 plot_cont_dist(uniform_native, 'Uniform Distribution (Numpy native)')
 
-# # Comparing Discrete Uniform distribution in RandVarGen with Python Native
-discunif_RandVarGen = RandVarGen().discrete_uniform(12, size=size1)
-plot_cont_dist(discunif_RandVarGen, 'Discrete Uniform Distribution (RandVarGen)')
-
-# Comparing Binomial distribution in RandVarGen with Python Native
-binomial_RandVarGen = RandVarGen().binomial(5, 0.5,  size=size1)
-binomial_native = np.random.binomial(5, 0.5, size=size1)
-plot_cont_dist(binomial_RandVarGen, 'Binomial Distribution (RandVarGen)')
-plot_cont_dist(binomial_native, 'Binomial Distribution (Numpy native)')
-
-# Comparing Erlang distribution in RandVarGen with Python Native
-erlang_RandVarGen = RandVarGen().erlang(1, 2,  size=size1)
-plot_cont_dist(erlang_RandVarGen, 'Erlang Distribution (RandVarGen)')
-
-# Comparing Negative Binomial distribution in RandVarGen with Python Native
-negbinomial_RandVarGen = RandVarGen().negative_binomial(5, 0.5,  size=size1)
-negbinomial_native = np.random.negative_binomial(5, 0.5, size=size1)
-plot_cont_dist(negbinomial_RandVarGen, 'Negative Binomial Distribution (RandVarGen)')
-plot_cont_dist(negbinomial_native, 'Negative Binomial Distribution (Numpy native)')
-
-# Comparing Chi-Square distribution in RandVarGen with Python Native
-chisquare_RandVarGen = RandVarGen().chisquare(3,  size=size1)
-chisquare_native = np.random.chisquare(3, size=size1)
-plot_cont_dist(chisquare_RandVarGen, 'Chi-Square Distribution (RandVarGen)')
-plot_cont_dist(chisquare_native, 'Chi-Square Distribution (Numpy native)')
+# Comparing Weibull distribution in RandVarGen with Python Native
+weibull_RandVarGen = RandVarGen().weibull(1, 3, size=size1)
+weibull_native = np.random.weibull(3, size=size1)
+plot_cont_dist(weibull_RandVarGen, 'Weibull Distribution (RandVarGen)')
+plot_cont_dist(weibull_native, 'Weibull Distribution (Numpy native)')
