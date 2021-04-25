@@ -18,7 +18,5 @@ This document provides the user's guide, complete source code, and some appropri
 ### Binomial Distribution
 Draw samples from a binomial distribution.
 
-$e^{i \pi} = -1$
-
 Samples are drawn from a binomial distribution with specified parameters, n trials and p probability of success where n is an integer >= 0 and p is in the interval [0,1]. (n may be input as a float, but it is truncated to an integer in use)
 
